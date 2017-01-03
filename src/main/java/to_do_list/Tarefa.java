@@ -7,7 +7,7 @@ package to_do_list;
 
 import Enumeracoes.EstadoTarefa;
 import Enumeracoes.PrioridadeTarefa;
-import Exceptions.TagNotFound;
+import Exceptions.TagNotFoundError;
 import Exceptions.TaskStatusError;
 
 import java.util.Arrays;
@@ -210,9 +210,9 @@ public class Tarefa {
      *
      * @param ticketNum index da tag pretendida
      * @return a tag pretendida
-     * @throws TagNotFound Excepção lançada caso o index da tag não seja válido.
+     * @throws TagNotFoundError Excepção lançada caso o index da tag não seja válido.
      */
-    public Etiqueta getTag(int ticketNum) throws TagNotFound {
+    public Etiqueta getTag(int ticketNum) throws TagNotFoundError {
 
         boolean isValid = isIndexValid(ticketNum);
 
@@ -221,7 +221,7 @@ public class Tarefa {
             return this.listaEtiquetas[ticketNum];
         }
 
-        throw new TagNotFound("There is no ticket with the index: " + ticketNum);
+        throw new TagNotFoundError("There is no ticket with the index: " + ticketNum);
 
     }
 

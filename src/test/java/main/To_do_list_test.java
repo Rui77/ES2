@@ -7,7 +7,7 @@ package main;
  */
 import Enumeracoes.EstadoTarefa;
 import Enumeracoes.PrioridadeTarefa;
-import Exceptions.TaskNotFound;
+import Exceptions.TaskNotFoundError;
 import Exceptions.TaskStatusError;
 import ManagerListas.ManagerListas;
 import java.util.Date;
@@ -525,7 +525,7 @@ public class To_do_list_test {
 
     @Test
 
-    public void VerificarImpressãoDeTodasAsListas() throws TaskNotFound {
+    public void VerificarImpressãoDeTodasAsListas() throws TaskNotFoundError {
         Lista lista1 = new Lista("Supermercado");
         Lista lista2 = new Lista("Loja");
         ManagerListas manager = new ManagerListas();
@@ -544,7 +544,7 @@ public class To_do_list_test {
 
     @Test
 
-    public void VerificarContagemDeTarefasPorRealizarPorLista() throws TaskNotFound {
+    public void VerificarContagemDeTarefasPorRealizarPorLista() throws TaskNotFoundError {
         Lista lista1 = new Lista("Supermercado");
         Lista lista2 = new Lista("Loja");
         ManagerListas manager = new ManagerListas();
@@ -562,9 +562,9 @@ public class To_do_list_test {
 
     @Test
 
-    public void VerificarInsucessoNaImpressãoNãoHavendoListas() throws TaskNotFound {
+    public void VerificarInsucessoNaImpressãoNãoHavendoListas() throws TaskNotFoundError {
         ManagerListas manager = new ManagerListas();
-        exception1.expect(TaskNotFound.class);
+        exception1.expect(TaskNotFoundError.class);
         manager.printAllList();
 
     }
@@ -584,7 +584,7 @@ public class To_do_list_test {
 
     @Test
 
-    public void VerificarSucessoNaOrdenacaoDeTarefasPorPrioridade() throws TaskNotFound {
+    public void VerificarSucessoNaOrdenacaoDeTarefasPorPrioridade() throws TaskNotFoundError {
         Lista lista1 = new Lista("Supermercado");
         Tarefa tarefa1 = new Tarefa("Comprar leite", 1);
         Tarefa tarefa2 = new Tarefa("Comprar ovos", 10);
@@ -610,7 +610,7 @@ public class To_do_list_test {
 
     @Test
 
-    public void VerificarSucessoNoAgrupamentoDasTarefasPorEstado() throws TaskStatusError, TaskNotFound {
+    public void VerificarSucessoNoAgrupamentoDasTarefasPorEstado() throws TaskStatusError, TaskNotFoundError {
         Lista lista1 = new Lista("Supermercado");
         Tarefa tarefa1 = new Tarefa("Comprar leite", 1);
         Tarefa tarefa2 = new Tarefa("Comprar ovos", 1);

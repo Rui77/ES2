@@ -7,8 +7,8 @@ package main;
 
 import Enumeracoes.EstadoTarefa;
 import Enumeracoes.PrioridadeTarefa;
-import Exceptions.TagNotFound;
-import Exceptions.TaskNotFound;
+import Exceptions.TagNotFoundError;
+import Exceptions.TaskNotFoundError;
 import Exceptions.TaskQuantityError;
 import Exceptions.TaskStatusError;
 import ManagerListas.ManagerListas;
@@ -26,12 +26,12 @@ public class DEMO {
 
     /**
      * @param args the command line arguments
-     * @throws Exceptions.TaskNotFound
-     * @throws TagNotFound
+     * @throws Exceptions.TaskNotFoundError
+     * @throws TagNotFoundError
      * @throws Exceptions.TaskQuantityError
      * @throws Exceptions.TaskStatusError
      */
-    public static void main(String[] args) throws TaskNotFound, TagNotFound, TaskQuantityError, TaskStatusError {
+    public static void main(String[] args) throws TaskNotFoundError, TagNotFoundError, TaskQuantityError, TaskStatusError {
 
         Date data = new Date(2016, 12, 20);
         Lista lista1 = new Lista("SuperMercado");

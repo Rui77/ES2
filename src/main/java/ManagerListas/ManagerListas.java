@@ -6,7 +6,7 @@
 package ManagerListas;
 
 import Enumeracoes.EstadoTarefa;
-import Exceptions.TaskNotFound;
+import Exceptions.TaskNotFoundError;
 import to_do_list.Lista;
 
 /**
@@ -67,7 +67,7 @@ public class ManagerListas {
 
     }
 
-    public int getSpecifiedTasksStatusCount(Lista list) throws TaskNotFound {
+    public int getSpecifiedTasksStatusCount(Lista list) throws TaskNotFoundError {
         int counter = 0;
         for (int j = 0; j < list.getTaskNum(); j++) {
             if (list.getTarefa(j).getEstado() == EstadoTarefa.POR_REALIZAR) {
@@ -83,9 +83,9 @@ public class ManagerListas {
      * estado Por_Realizar por cada lista
      *
      * @return
-     * @throws TaskNotFound Caso não seja encontrada nenhuma tarefa.
+     * @throws TaskNotFoundError Caso não seja encontrada nenhuma tarefa.
      */
-    public String[] printAllList() throws TaskNotFound {
+    public String[] printAllList() throws TaskNotFoundError {
 
         if (this.listCount > 0) {
             String[] arrayInfoListas = new String[this.listCount];
@@ -98,7 +98,7 @@ public class ManagerListas {
             }
             return arrayInfoListas;
         } else {
-            throw new TaskNotFound("No tasks were found");
+            throw new TaskNotFoundError("No tasks were found");
         }
     }
 
@@ -110,15 +110,4 @@ public class ManagerListas {
         return listas;
     }
 
-    /**
-     * Método que permite a expansão do número de posições do nosso array de
-     * listas
-     */
-    private void expandCapacity() {
-        Lista[] newArray = new Lista[DEFAULT_CAPACITY + (DEFAULT_CAPACITY / 2)];
-        System.arraycopy(listas, 0, newArray, 0, listas.length);
-
-        listas = newArray;
-
-    }
 }

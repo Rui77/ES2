@@ -6,7 +6,7 @@
 package to_do_list;
 
 import Enumeracoes.EstadoTarefa;
-import Exceptions.TaskNotFound;
+import Exceptions.TaskNotFoundError;
 
 /**
  *
@@ -65,14 +65,14 @@ public class Lista {
      *
      * @param index index da tarefa que se pretende retornar.
      * @return Tarefa retornada
-     * @throws TaskNotFound Caso não exista nenhuma tarefa com tal id
+     * @throws TaskNotFoundError Caso não exista nenhuma tarefa com tal id
      */
-    public Tarefa getTarefa(int index) throws TaskNotFound {
+    public Tarefa getTarefa(int index) throws TaskNotFoundError {
 
         if (listaTarefas[index] != null) {
             return listaTarefas[index];
         } else {
-            throw new TaskNotFound("There is no task with that Index");
+            throw new TaskNotFoundError("There is no task with that Index");
         }
 
     }

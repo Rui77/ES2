@@ -9,22 +9,22 @@ package Exceptions;
  *
  * @author Rui
  */
-public class TaskNotFound extends Exception {
+public class TagNotFoundError extends Exception {
 
     /**
-     * Creates a new instance of <code>TaskNotFound</code> without detail
+     * Creates a new instance of <code>TagNotFound</code> without detail
      * message.
      */
-    public TaskNotFound() {
+    public TagNotFoundError() {
     }
 
     /**
-     * Constructs an instance of <code>TaskNotFound</code> with the specified
+     * Constructs an instance of <code>TagNotFound</code> with the specified
      * detail message.
      *
      * @param msg the detail message.
      */
-    public TaskNotFound(String msg) {
+    public TagNotFoundError(String msg) {
         super(msg);
     }
 }
