@@ -7,6 +7,7 @@ package main;
 
 import Enumeracoes.EstadoTarefa;
 import Enumeracoes.PrioridadeTarefa;
+import Enumeracoes.TipoAlerta;
 import Exceptions.TagNotFoundError;
 import Exceptions.TaskNotFoundError;
 import Exceptions.TaskQuantityError;
@@ -45,7 +46,7 @@ public class DEMO {
         Tarefa tarefa3 = new Tarefa("Comprar água", 10);
         //tarefa3.setEstadoSeconds(EstadoTarefa.REALIZADA, null);
         tarefa3.setPriority(PrioridadeTarefa.P1);
-        tarefa1.setLembrete(5, "Só para testar");
+        tarefa1.setLembrete(5, "Só para testar", TipoAlerta.THREAD);
 
         lista1.addTarefa(tarefa1);
         lista1.addTarefa(tarefa3);
@@ -58,7 +59,7 @@ public class DEMO {
         System.out.println(tarefa1.toString());
         System.out.println(tarefa2.toString());
 
-        tarefa1.setLembrete(5, "Testar esta coisa");
+        tarefa1.setLembrete(5, "Testar esta coisa", TipoAlerta.THREAD);
 
         System.out.println("*****************************************");
         manager.addLista(lista1);

@@ -5,6 +5,7 @@
  */
 package to_do_list;
 
+import Enumeracoes.TipoAlerta;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,23 +19,30 @@ public class Lembrete {
     private Timer timer;
     private String remindertask;
     private String created;
+    private TipoAlerta tipoalerta;
 
     /**
      * Construtor que nos permite criar um lembrete que será ativado em segundos
      *
      * @param seconds Atributo que ativará o lembrete
      * @param task Descrição do lembrete
+     * @param tipoalerta Tipo de alerta escolhido pelo user
      */
-    public Lembrete(int seconds, String task) throws InstantiationError {  // Creates a reminder that expires in seconds
-        if (task != null && !task.equals("") && task.length() <= 100 && seconds > 0) {
+    public Lembrete(int seconds, String task, TipoAlerta tipoalerta) throws InstantiationError {  // Creates a reminder that expires in seconds
+        if (task != null && !task.equals("") && task.length() <= 100 && seconds > 0 && tipoalerta != null) {
             this.created = "Lembrete criado com sucesso";
             System.out.println("Lembrete criado com sucesso");
-            timer = new Timer();
-            this.remindertask = task;
-            timer.schedule(new ReminderRun(), seconds);
+            this.tipoalerta = tipoalerta;
+            if (this.tipoalerta.equals(TipoAlerta.THREAD)) {
+                this.remindertask = task;
+                timer = new Timer();
+                timer.schedule(new ReminderRun(), seconds);
+            }
+
         } else {
             throw new InstantiationError("Parece haver algum problema com o seu lembrete!");
         }
+        this.tipoalerta = tipoalerta;
     }
 
     /**
@@ -43,14 +51,18 @@ public class Lembrete {
      *
      * @param date data enviada por parametro para ativar lembrete
      * @param task descriçao do lembrete
+     * @param tipoalerta
      */
-    public Lembrete(Date date, String task) throws InstantiationError {
-        if (task != null && !task.equals("") && task.length() <= 100 && (date.after(new Date()))) {
+    public Lembrete(Date date, String task, TipoAlerta tipoalerta) throws InstantiationError {
+        if (task != null && !task.equals("") && task.length() <= 100 && (date.after(new Date())) && tipoalerta != null) {
+            this.tipoalerta = tipoalerta;
             this.created = "Lembrete criado com sucesso";
             System.out.println("Lembrete criado com sucesso");
-            timer = new Timer();
-            this.remindertask = task;
-            timer.schedule(new ReminderRun(), date);
+            if (this.tipoalerta.equals(TipoAlerta.THREAD)) {
+                this.remindertask = task;
+                timer = new Timer();
+                timer.schedule(new ReminderRun(), date);
+            }
         } else {
             throw new InstantiationError("Parece haver algum problema com o seu lembrete!");
         }
@@ -74,8 +86,39 @@ public class Lembrete {
         this.remindertask = remindertask;
     }
 
+    /**
+     * Método que retorna a string indicando se o construtor foi instanciado com
+     * sucesso.
+     *
+     * @return String com a mesnagem de sucesso
+     */
     public String getCreated() {
         return created;
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
+
+    /**
+     * Retorna o tipo de alerta deste lembrete
+     *
+     * @return tipo de alerta
+     */
+    public TipoAlerta getTipoalerta() {
+        return tipoalerta;
+    }
+
+    /**
+     *
+     * @param tipoalerta
+     */
+    public void setTipoalerta(TipoAlerta tipoalerta) {
+        this.tipoalerta = tipoalerta;
     }
 
     class ReminderRun extends TimerTask {

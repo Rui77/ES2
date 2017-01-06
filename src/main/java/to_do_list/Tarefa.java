@@ -7,6 +7,7 @@ package to_do_list;
 
 import Enumeracoes.EstadoTarefa;
 import Enumeracoes.PrioridadeTarefa;
+import Enumeracoes.TipoAlerta;
 import Exceptions.TagNotFoundError;
 import Exceptions.TaskStatusError;
 
@@ -210,7 +211,8 @@ public class Tarefa {
      *
      * @param ticketNum index da tag pretendida
      * @return a tag pretendida
-     * @throws TagNotFoundError Excepção lançada caso o index da tag não seja válido.
+     * @throws TagNotFoundError Excepção lançada caso o index da tag não seja
+     * válido.
      */
     public Etiqueta getTag(int ticketNum) throws TagNotFoundError {
 
@@ -232,8 +234,8 @@ public class Tarefa {
      * @param desc descriçao do lembrete
      * @return
      */
-    public boolean setLembrete(Date data, String desc) {
-        this.reminders[reminderCount] = new Lembrete(data, desc);
+    public boolean setLembrete(Date data, String desc, TipoAlerta tp) {
+        this.reminders[reminderCount] = new Lembrete(data, desc, tp);
         reminderCount++;
         return true;
     }
@@ -242,6 +244,7 @@ public class Tarefa {
      * É enviado um lembrete já criado, por parâmetro.
      *
      * @param tmp Lembrete a ser adicionado
+     * @return 
      */
     public boolean setLembrete(Lembrete tmp) {
         this.reminders[reminderCount] = tmp;
@@ -256,9 +259,10 @@ public class Tarefa {
      *
      * @param seconds Após estes segundos o lembrete será ativado
      * @param desc Descrição do lembrete
+     * @param tp
      */
-    public void setLembrete(int seconds, String desc) {
-        this.reminders[reminderCount] = new Lembrete(seconds, desc);
+    public void setLembrete(int seconds, String desc, TipoAlerta tp) {
+        this.reminders[reminderCount] = new Lembrete(seconds, desc, tp);
         reminderCount++;
     }
 
