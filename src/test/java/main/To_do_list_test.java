@@ -442,17 +442,16 @@ public class To_do_list_test {
 
         boolean expected = true;
         boolean real = tarefa1.setLembrete(reminder1);
-       
-        
+
         //Verificar Sucesso Encher Array De Lembretes Numa Tarefa
-            Tarefa tarefa2 = new Tarefa("Comprar leite", 5);
+        Tarefa tarefa2 = new Tarefa("Comprar leite", 5);
         Lembrete reminder2 = new Lembrete(new Date(117, 12, 30), "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
         for (int i = 0; i < tarefa1.DEFAULT_CAPACITY; i++) {
-            tarefa2.setLembrete(reminder1);
+            tarefa2.setLembrete(reminder2);
         }
 
         assertEquals(tarefa2.DEFAULT_CAPACITY, tarefa1.getReminderCount());
-         assertEquals(expected, real);
+        assertEquals(expected, real);
 
     }
 
@@ -467,6 +466,7 @@ public class To_do_list_test {
         exception1.expect(ArrayIndexOutOfBoundsException.class);
         tarefa1.setLembrete(reminder1);
     }
+//user stories das listagens
 
     @Test
 
