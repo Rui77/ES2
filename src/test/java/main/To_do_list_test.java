@@ -59,7 +59,7 @@ public class To_do_list_test {
         String testString1 = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH";
         Lista lista1 = new Lista(testString1);
         String realCreated1 = lista1.getCreated();
-           String expectedCreated1 = "Lista criada com sucesso";
+        String expectedCreated1 = "Lista criada com sucesso";
         //Testa 50 caracteres no nome da lista 
         
         String testString2 = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH1";
@@ -70,11 +70,14 @@ public class To_do_list_test {
         
           // Testa 51 caracteres no nome da lista
      
-        assertEquals(expectedCreated1, realCreated1 );
-         assertEquals(expectedCreated2, realCreated2);
+       
         exception1.expect(InstantiationError.class);
         String testString3 = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH11";
         Lista lista3 = new Lista(testString3);
+        
+        
+         assertEquals(expectedCreated1, realCreated1 );
+         assertEquals(expectedCreated2, realCreated2);
 
     }
 
