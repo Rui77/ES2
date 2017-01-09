@@ -42,7 +42,7 @@ public class To_do_list_test {
         String realCreated = lista.getCreated();
         String expectedCreated = "Lista criada com sucesso";
         assertEquals(expectedCreated, realCreated);
-        
+
     }
 
     @Test
@@ -59,46 +59,19 @@ public class To_do_list_test {
         String testString1 = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH";
         Lista lista1 = new Lista(testString1);
         String realCreated1 = lista1.getCreated();
-           String expectedCreated1 = "Lista criada com sucesso";
+        String expectedCreated1 = "Lista criada com sucesso";
         //Testa 50 caracteres no nome da lista 
-        
         String testString2 = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH1";
         Lista lista2 = new Lista(testString2);
         String realCreated2 = lista2.getCreated();
         String expectedCreated2 = "Lista criada com sucesso";
-       
-        
-          // Testa 51 caracteres no nome da lista
-     
-        assertEquals(expectedCreated1, realCreated1 );
-         assertEquals(expectedCreated2, realCreated2);
+        // Testa 51 caracteres no nome da lista
         exception1.expect(InstantiationError.class);
         String testString3 = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH11";
         Lista lista3 = new Lista(testString3);
 
-    }
-
-    @Test
-    public void VerificaListaValidaCom50Caracteres() {
-        String testString2 = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH1";
-        Lista lista2 = new Lista(testString2);
-        String realCreated = lista2.getCreated();
-        String expectedCreated = "Lista criada com sucesso";
-        assertEquals(expectedCreated, realCreated);
-    }
-
-    @Test
-    public void VerificaListaInvalidaCom51Caracteres() {
-
-    }
-
-    // UserStorie 2 
-    @Test
-    public void VerificaCriarTarefaDescricaoValida() {
-        Tarefa task1 = new Tarefa("Comprar Leite", 5);
-        String real = task1.getCreated();
-        String expected = "Tarefa criada com sucesso";
-        assertEquals(expected, real);
+        assertEquals(expectedCreated1, realCreated1);
+        assertEquals(expectedCreated2, realCreated2);
     }
 
     @Test
@@ -109,29 +82,23 @@ public class To_do_list_test {
 
     @Test
 
-    public void VerificarCriarTarefaDescricao99Caracteres() {
-        String tmpString = "lqXmS7X3cujg8pm5XwJTzU60IcxnTjAgDZWFtZnpXIsNG89S64Zls23rqpDtobz0D1QK5hCoOKQogIiNWH1Hpo8YIfiqyUyIuAy";
-        Tarefa task1 = new Tarefa(tmpString, 5);
-        String real = task1.getCreated();
-        String expected = "Tarefa criada com sucesso";
-        assertEquals(expected, real);
-    }
-
-    @Test
-    public void VerificarCriarTarefaDescricao100Caracteres() {
-        String tmpString = "lqXmS7X3cujg8pm5XwJTzU60IcxnTjAgDZWFtZnpXIsNG89S64Zls23rqpDtobz0D1QK5hCoOKQogIiNWH1Hpo8YIfiqyUyIuAyA";
-        Tarefa task1 = new Tarefa(tmpString, 5);
-        String real = task1.getCreated();
-        String expected = "Tarefa criada com sucesso";
-        assertEquals(expected, real);
-    }
-
-    @Test
-    public void VerificarCriarTarefaDescricaoInvalida101Caracteres() {
+    public void VerificarCriarTarefaDescricaoComprida() {
+        //99
+        String tmpString1 = "lqXmS7X3cujg8pm5XwJTzU60IcxnTjAgDZWFtZnpXIsNG89S64Zls23rqpDtobz0D1QK5hCoOKQogIiNWH1Hpo8YIfiqyUyIuAy";
+        Tarefa task1 = new Tarefa(tmpString1, 5);
+        String real1 = task1.getCreated();
+        String expected1 = "Tarefa criada com sucesso";
+        assertEquals(expected1, real1);
+        //100
+        String tmpString2 = "lqXmS7X3cujg8pm5XwJTzU60IcxnTjAgDZWFtZnpXIsNG89S64Zls23rqpDtobz0D1QK5hCoOKQogIiNWH1Hpo8YIfiqyUyIuAyA";
+        Tarefa task2 = new Tarefa(tmpString2, 5);
+        String real2 = task2.getCreated();
+        String expected2 = "Tarefa criada com sucesso";
+        assertEquals(expected2, real2);
+        //101
         String tmpString = "lqXmS7X3cujg8pm5XwJTzU60IcxnTjAgDZWFtZnpXIsNG89S64Zls23rqpDtobz0D1QK5hCoOKQogIiNWH1Hpo8YIfiqyUyIuAyAA";
         exception1.expect(InstantiationError.class);
-        Tarefa task1 = new Tarefa(tmpString, 5);
-
+        Tarefa task3 = new Tarefa(tmpString, 5);
     }
 
     @Test
@@ -153,19 +120,16 @@ public class To_do_list_test {
     }
 
     @Test
-    public void VerificarCriarTarefaDeadlineComTempoInvalidoZero() {
-
+    public void VerificarCriarTarefaDeadlineComTempoInvalido() {
+//0
         exception1.expect(InstantiationError.class);
 
         Tarefa task1 = new Tarefa("Comprar Leite", 0);
-    }
-
-    @Test
-    public void VerificarCriarTarefaDeadlineComTempoInvalidoNegativo() {
-
+        //-1
         exception1.expect(InstantiationError.class);
 
-        Tarefa task1 = new Tarefa("Comprar Leite", -1);
+        Tarefa task2 = new Tarefa("Comprar Leite", -1);
+
     }
 
     @Test
@@ -179,61 +143,56 @@ public class To_do_list_test {
     //UserStorie 3
     @Test
     public void VerificarAdicaoTarefaALista() {
+        //Testa com 0 tarefas na lista
         Lista list1 = new Lista("Supermercado");
         Tarefa task1 = new Tarefa("ComprarOvos", 5);
         Boolean real = list1.addTarefa(task1);
         Boolean expected = true;
-        assertEquals(expected, real);
-
-    }
-
-    @Test
-
-    public void VerificarAdicaoTarefaAListaComArrayCheio() {
-        Lista list1 = new Lista("Supermercado");
-        Tarefa task1 = new Tarefa("ComprarOvos", 5);
+                
+        //Testa com 5 tarefas na lista
+        Lista list2 = new Lista("Supermercado");
+        Tarefa task2 = new Tarefa("ComprarOvos", 5);
         exception1.expect(ArrayIndexOutOfBoundsException.class);
-        list1.addTarefa(task1);
-        list1.addTarefa(task1);
-        list1.addTarefa(task1);
-        list1.addTarefa(task1);
-        list1.addTarefa(task1);
-        list1.addTarefa(task1);
-
+        list2.addTarefa(task2);
+        list2.addTarefa(task2);
+        list2.addTarefa(task2);
+        list2.addTarefa(task2);
+        list2.addTarefa(task2);
+        list2.addTarefa(task2);
+        
+        assertEquals(expected, real);
     }
 
     //UserStorie 4
     @Test
-    public void VerificarAtribuicaoPrioridadeP1() {
+    public void VerificarAtribuicaoPrioridade() {
+        //P1
         Tarefa tarefa1 = new Tarefa("Comprar leite", 5);
-        boolean real = tarefa1.setPriority(PrioridadeTarefa.P1);
-        boolean expected = true;
-        assertEquals(expected, real);
+        boolean real1 = tarefa1.setPriority(PrioridadeTarefa.P1);
+        boolean expected1 = true;
+
+        //P2
+        Tarefa tarefa2 = new Tarefa("Comprar leite", 5);
+        boolean real2 = tarefa2.setPriority(PrioridadeTarefa.P2);
+        boolean expected2 = true;
+
+        //P3
+        Tarefa tarefa3 = new Tarefa("Comprar leite", 5);
+        boolean real3 = tarefa3.setPriority(PrioridadeTarefa.P3);
+        boolean expected3 = true;
+
+        //P4
+        Tarefa tarefa4 = new Tarefa("Comprar leite", 5);
+        boolean real4 = tarefa4.setPriority(PrioridadeTarefa.P4);
+        boolean expected4 = true;
+
+        assertEquals(expected1, real1);
+        assertEquals(expected2, real2);
+        assertEquals(expected3, real3);
+        assertEquals(expected4, real4);
+
     }
 
-    @Test
-    public void VerificarAtribuicaoPrioridadeP2() {
-        Tarefa tarefa1 = new Tarefa("Comprar leite", 5);
-        boolean real = tarefa1.setPriority(PrioridadeTarefa.P2);
-        boolean expected = true;
-        assertEquals(expected, real);
-    }
-
-    @Test
-    public void VerificarAtribuicaoPrioridadeP3() {
-        Tarefa tarefa1 = new Tarefa("Comprar leite", 5);
-        boolean real = tarefa1.setPriority(PrioridadeTarefa.P3);
-        boolean expected = true;
-        assertEquals(expected, real);
-    }
-
-    @Test
-    public void VerificarAtribuicaoPrioridadeP4() {
-        Tarefa tarefa1 = new Tarefa("Comprar leite", 5);
-        boolean real = tarefa1.setPriority(PrioridadeTarefa.P4);
-        boolean expected = true;
-        assertEquals(expected, real);
-    }
 
     @Test
     public void RetirarPrioridadeTarefa() {
@@ -272,56 +231,53 @@ public class To_do_list_test {
 
     @Test
 
-    public void VerificaAlteracaoEstadoTarefaParaRealizada() throws TaskStatusError {
+    public void VerificaAlteracaoEstadoTarefa() throws TaskStatusError {
+        //para realizada
         Tarefa tarefa1 = new Tarefa("Comprar Leite", 5);
-        String expected = EstadoTarefa.REALIZADA.toString();
+        String expected1 = EstadoTarefa.REALIZADA.toString();
         tarefa1.setEstadoSeconds(EstadoTarefa.REALIZADA, null);
-        String real = tarefa1.getEstado().toString();
-        assertEquals(expected, real);
-    }
-
-    @Test
-
-    public void VerificarImpossibilidadeTarefaRealizadaComDeadlineNaoNula() throws TaskStatusError {
-        Tarefa tarefa1 = new Tarefa("Comprar Leite", 5);
+        String real1 = tarefa1.getEstado().toString();
+        
+       //Impossibilidade Tarefa Realizada Com Deadline Nao Nula
+         Tarefa tarefa2 = new Tarefa("Comprar Leite", 5);
         exception1.expect(TaskStatusError.class);
         tarefa1.setEstadoSeconds(EstadoTarefa.REALIZADA, 5);
-    }
-
-    @Test
-    public void VerificarAlteracaoDeEstadoTarefaParaPORREALIZARDeadlineNaoNula() throws TaskStatusError {
-        Tarefa tarefa1 = new Tarefa("Comprar Leite", 5);
-        tarefa1.setEstadoSeconds(EstadoTarefa.POR_REALIZAR, 20);
-        String expected = EstadoTarefa.POR_REALIZAR.toString();
-        String real = tarefa1.getEstado().toString();
-        assertEquals(expected, real);
-    }
-
-    @Test
-    public void VerificarAlteracaoDeEstadoTarefaParaPORREALIZARDeadlineNula() throws TaskStatusError {
-        Tarefa tarefa1 = new Tarefa("Comprar Leite", 5);
-
+        
+        // Alteracao De Estado Tarefa Para PORREALIZAR Deadline Nao Nula
+            Tarefa tarefa3 = new Tarefa("Comprar Leite", 5);
+        tarefa3.setEstadoSeconds(EstadoTarefa.POR_REALIZAR, 20);
+        String expected3 = EstadoTarefa.POR_REALIZAR.toString();
+        String real3 = tarefa3.getEstado().toString();
+        
+        //Alteracao De Estado Tarefa Para PORREALIZAR Deadline Nula
+        
+        Tarefa tarefa4 = new Tarefa("Comprar Leite", 5);
         exception1.expect(TaskStatusError.class);
         tarefa1.setEstadoSeconds(EstadoTarefa.POR_REALIZAR, null);
-
-    }
-
-    @Test
-    public void VerificarAlteracaoDeEstadoParaPorRealizarComUmaDeadlineNegativa() throws TaskStatusError {
-        Tarefa tarefa1 = new Tarefa("Comprar Leite", 5);
+        
+        //Alteracao De Estado Para Por Realizar Com Uma Deadline Negativa
+        Tarefa tarefa5 = new Tarefa("Comprar Leite", 5);
         exception1.expect(IllegalArgumentException.class);
         tarefa1.setEstadoSeconds(EstadoTarefa.POR_REALIZAR, -1);
+        
+        //Alteracao De Estado Para Por Realizar Com Uma Data Na Deadline Valida
+        
+        Date data6 = new Date(117, 11, 28);
+        Tarefa tarefa6 = new Tarefa("Comprar Leite", 5);
+        tarefa6.setEstadoDate(EstadoTarefa.POR_REALIZAR, data6);
+        String expected6 = EstadoTarefa.POR_REALIZAR.toString();
+        String real6 = tarefa1.getEstado().toString();
+       
+        
+        assertEquals(expected3, real3);
+        assertEquals(expected1, real1);
+         assertEquals(expected6, real6);
     }
 
-    @Test
+    
 
-    public void VerificarAlteracaoDeEstadoParaPorRealizarComUmaDataNaDeadlineValida() throws TaskStatusError {
-        Date data = new Date(117, 11, 28);
-        Tarefa tarefa1 = new Tarefa("Comprar Leite", 5);
-        tarefa1.setEstadoDate(EstadoTarefa.POR_REALIZAR, data);
-        String expected = EstadoTarefa.POR_REALIZAR.toString();
-        String real = tarefa1.getEstado().toString();
-        assertEquals(expected, real);
+    public void () throws TaskStatusError {
+
     }
 
     @Test
