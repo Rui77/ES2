@@ -416,13 +416,11 @@ public class To_do_list_test {
         Lembrete reminder4 = new Lembrete(1, "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
         String expected4 = "Lembrete criado com sucesso";
         String real4 = reminder4.getCreated();
-        assertEquals(expected4, real4);
 
         //Lembrete com data superior à do sistema
         Lembrete reminder5 = new Lembrete(new Date(117, 11, 30), "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
         String expected5 = "Lembrete criado com sucesso";
         String real5 = reminder5.getCreated();
-        assertEquals(expected5, real5);
 
         //Lembrete com data inferior à do sistema
         exception1.expect(InstantiationError.class);
@@ -431,6 +429,9 @@ public class To_do_list_test {
         //Lembrete com data igual ao sistema
         exception1.expect(InstantiationError.class);
         Lembrete reminder7 = new Lembrete(new Date(), "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
+
+        assertEquals(expected4, real4);
+        assertEquals(expected5, real5);
     }
 
     //UserStorie 9 - Atribuir Lembretes a uma tarefa
@@ -585,6 +586,30 @@ public class To_do_list_test {
                 + "Lembrete criado com sucesso";
         String real = tarefa1.toString();
         assertEquals(expected, real);
+    }
+
+    @Test
+    public void VerificarCriacaodosdeDiferentesTiposdeLembretes() {
+
+        //thread
+        Lembrete reminder1 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
+        String expected1 = "";
+        String real1 = reminder1.getTipoalerta().toString();
+        //mensagem
+        
+        
+        
+          Lembrete reminder2 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.MENSAGEM_TELEMOVEL);
+        String expected2 = "Lembrete criado com sucesso";
+        String real2 = reminder2.getTipoalerta().toString();
+        //email
+        
+     Lembrete reminder3 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.EMAIL);
+        String expected3 = "Lembrete criado com sucesso";
+        String real3 = reminder3.getTipoalerta().toString();
+        assertEquals(expected1, real1);
+             assertEquals(expected2, real2);
+            assertEquals(expected3, real3);
     }
 
 }
