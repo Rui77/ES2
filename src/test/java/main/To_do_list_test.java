@@ -7,6 +7,7 @@ package main;
  */
 import Enumeracoes.EstadoTarefa;
 import Enumeracoes.PrioridadeTarefa;
+import Enumeracoes.TipoAlerta;
 import Exceptions.TaskNotFoundError;
 import Exceptions.TaskStatusError;
 import ManagerListas.ManagerListas;
@@ -41,6 +42,7 @@ public class To_do_list_test {
         String realCreated = lista.getCreated();
         String expectedCreated = "Lista criada com sucesso";
         assertEquals(expectedCreated, realCreated);
+        
     }
 
     @Test
@@ -52,29 +54,39 @@ public class To_do_list_test {
     }
 
     @Test
-    public void VerificaListaValidaCom49Caracteres() {
-        String testString = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH";
-        Lista lista = new Lista(testString);
-        String realCreated = lista.getCreated();
+    public void VerificaListaValidaComNomeComprido() {
+        // Testa 49 caracteres no nome da lista
+        String testString1 = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH";
+        Lista lista1 = new Lista(testString1);
+        String realCreated1 = lista1.getCreated();
+        //Testa 50 caracteres no nome da lista 
+        
+        String testString2 = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH1";
+        Lista lista2 = new Lista(testString2);
+        String realCreated = lista2.getCreated();
         String expectedCreated = "Lista criada com sucesso";
         assertEquals(expectedCreated, realCreated);
+        
+          // Testa 51 caracteres no nome da lista
+        String expectedCreated = "Lista criada com sucesso";
+        assertEquals(expectedCreated, realCreated1 );
+        exception1.expect(InstantiationError.class);
+        String testString3 = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH11";
+        Lista lista3 = new Lista(testString3);
+
     }
 
     @Test
     public void VerificaListaValidaCom50Caracteres() {
-        String testString = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH1";
-        Lista lista = new Lista(testString);
-        String realCreated = lista.getCreated();
+        String testString2 = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH1";
+        Lista lista2 = new Lista(testString2);
+        String realCreated = lista2.getCreated();
         String expectedCreated = "Lista criada com sucesso";
         assertEquals(expectedCreated, realCreated);
     }
 
     @Test
     public void VerificaListaInvalidaCom51Caracteres() {
-
-        exception1.expect(InstantiationError.class);
-        String testString = "xzJ25iL8D2lUo2tlvlVqwhhWxNfojhuSvkf8wqO3gg401p7uH11";
-        Lista lista = new Lista(testString);
 
     }
 
@@ -231,7 +243,7 @@ public class To_do_list_test {
 
     @Test
 
-    public void VerificarDaTarefaPorDefeitoIgualASemPrioridade() {
+    public void VerificarTarefaPorDefeitoIgualASemPrioridade() {
         Tarefa tarefa1 = new Tarefa("Comprar leite", 5);
         PrioridadeTarefa real = tarefa1.getPriority();
         assertEquals(PrioridadeTarefa.SEM_PRIORIDADE, real);
@@ -405,7 +417,7 @@ public class To_do_list_test {
     @Test
 
     public void VerificarCriacaoDeLembreteComSucesso() {
-        Lembrete reminder1 = new Lembrete(5, "A tarefa está a pedir para ser realizada");
+        Lembrete reminder1 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
         String expected = "Lembrete criado com sucesso";
         String real = reminder1.getCreated();
         assertEquals(expected, real);
@@ -414,7 +426,7 @@ public class To_do_list_test {
 
     @Test
     public void VerificarSucessoDescricaoComCaracteresEspeciais() {
-        Lembrete reminder1 = new Lembrete(5, "A tarefa está a pedir para ser realizada ^^^#");
+        Lembrete reminder1 = new Lembrete(5, "A tarefa está a pedir para ser realizada ^^^#", TipoAlerta.THREAD);
         String expected = "A tarefa está a pedir para ser realizada ^^^#";
         String real = reminder1.getRemindertask();
         assertEquals(expected, real);
@@ -425,13 +437,13 @@ public class To_do_list_test {
     public void VerificarInsucessoNaCriacaoLembreteCom101Caracteres() {
 
         exception1.expect(InstantiationError.class);
-        Lembrete reminder1 = new Lembrete(5, "2XvIxo2Wlvo1hUhO2kNeZqRDAublhtN4lihmGwBw10VrtVg85sgDXnrSlbvzjDFRmqfAP7wSwOyKYsnrNyxDktUFhTzH98TE0EKOF");
+        Lembrete reminder1 = new Lembrete(5, "2XvIxo2Wlvo1hUhO2kNeZqRDAublhtN4lihmGwBw10VrtVg85sgDXnrSlbvzjDFRmqfAP7wSwOyKYsnrNyxDktUFhTzH98TE0EKOF", TipoAlerta.THREAD);
     }
 
     @Test
 
     public void VerificarSucessoNaCriacaoLembreteCom100Caracteres() {
-        Lembrete reminder1 = new Lembrete(5, "2XvIxo2Wlvo1hUhO2kNeZqRDAublhtN4lihmGwBw10VrtVg85sgDXnrSlbvzjDFRmqfAP7wSwOyKYsnrNyxDktUFhTzH98TE0EKO");
+        Lembrete reminder1 = new Lembrete(5, "2XvIxo2Wlvo1hUhO2kNeZqRDAublhtN4lihmGwBw10VrtVg85sgDXnrSlbvzjDFRmqfAP7wSwOyKYsnrNyxDktUFhTzH98TE0EKO", TipoAlerta.THREAD);
         String expected = "Lembrete criado com sucesso";
         String real = reminder1.getCreated();
         assertEquals(expected, real);
@@ -441,27 +453,27 @@ public class To_do_list_test {
 
     public void VerificarInsucessoNaCriacaoLembreteComTempoNulo() {
         exception1.expect(NullPointerException.class);
-        Lembrete reminder1 = new Lembrete(null, "A tarefa está a pedir para ser realizada");
+        Lembrete reminder1 = new Lembrete(null, "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
     }
 
     @Test
 
     public void VerificarInsucessoNaCriacaoLembreteComTempoNegativo() {
         exception1.expect(InstantiationError.class);
-        Lembrete reminder1 = new Lembrete(-1, "A tarefa está a pedir para ser realizada");
+        Lembrete reminder1 = new Lembrete(-1, "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
     }
 
     @Test
 
     public void VerificarInsucessoNaCriacaoLembreteComTempoIgualA0() {
         exception1.expect(InstantiationError.class);
-        Lembrete reminder1 = new Lembrete(0, "A tarefa está a pedir para ser realizada");
+        Lembrete reminder1 = new Lembrete(0, "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
     }
 
     @Test
 
     public void VerificarSucessoNaCriacaoLembreteComTempoIgualA1() {
-        Lembrete reminder1 = new Lembrete(1, "A tarefa está a pedir para ser realizada");
+        Lembrete reminder1 = new Lembrete(1, "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
         String expected = "Lembrete criado com sucesso";
         String real = reminder1.getCreated();
         assertEquals(expected, real);
@@ -469,7 +481,7 @@ public class To_do_list_test {
 
     @Test
     public void VerificarSucessoNaCriacaoLembreteComData() {
-        Lembrete reminder1 = new Lembrete(new Date(117, 11, 30), "A tarefa está a pedir para ser realizada");
+        Lembrete reminder1 = new Lembrete(new Date(117, 11, 30), "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
         String expected = "Lembrete criado com sucesso";
         String real = reminder1.getCreated();
         assertEquals(expected, real);
@@ -478,13 +490,13 @@ public class To_do_list_test {
     @Test
     public void VerificarInsucessoNaCriacaoLembreteComDataInferiorAoSistema() {
         exception1.expect(InstantiationError.class);
-        Lembrete reminder1 = new Lembrete(new Date(116, 11, 26), "A tarefa está a pedir para ser realizada");
+        Lembrete reminder1 = new Lembrete(new Date(116, 11, 26), "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
     }
 
     @Test
     public void VerificarInsucessoNaCriacaoLembreteComDataIgualAoSistema() {
         exception1.expect(InstantiationError.class);
-        Lembrete reminder1 = new Lembrete(new Date(), "A tarefa está a pedir para ser realizada");
+        Lembrete reminder1 = new Lembrete(new Date(), "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
     }
 
     //UserStorie 9 - Atribuir Lembretes a uma tarefa
@@ -492,7 +504,7 @@ public class To_do_list_test {
     public void VerificarSucessoAtribuicaoLembreteAUmaTarefa() {
 
         Tarefa tarefa1 = new Tarefa("Comprar leite", 5);
-        Lembrete reminder1 = new Lembrete(new Date(117, 12, 30), "A tarefa está a pedir para ser realizada");
+        Lembrete reminder1 = new Lembrete(new Date(117, 12, 30), "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
 
         boolean expected = true;
         boolean real = tarefa1.setLembrete(reminder1);
@@ -503,7 +515,7 @@ public class To_do_list_test {
     @Test
     public void VerificarSucessoEncherArrayDeLembretesNumaTarefa() {
         Tarefa tarefa1 = new Tarefa("Comprar leite", 5);
-        Lembrete reminder1 = new Lembrete(new Date(117, 12, 30), "A tarefa está a pedir para ser realizada");
+        Lembrete reminder1 = new Lembrete(new Date(117, 12, 30), "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
         for (int i = 0; i < tarefa1.DEFAULT_CAPACITY; i++) {
             tarefa1.setLembrete(reminder1);
         }
@@ -515,7 +527,7 @@ public class To_do_list_test {
 
     public void VerificarInsucessoAtribuicaoLembreteAArrayCheioDeLembretes() {
         Tarefa tarefa1 = new Tarefa("Comprar leite", 5);
-        Lembrete reminder1 = new Lembrete(new Date(117, 12, 30), "A tarefa está a pedir para ser realizada");
+        Lembrete reminder1 = new Lembrete(new Date(117, 12, 30), "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
         for (int i = 0; i < tarefa1.DEFAULT_CAPACITY; i++) {
             tarefa1.setLembrete(reminder1);
         }

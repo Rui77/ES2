@@ -5,7 +5,6 @@
  */
 package main;
 
-import Enumeracoes.EstadoTarefa;
 import Enumeracoes.PrioridadeTarefa;
 import Enumeracoes.TipoAlerta;
 import Exceptions.TagNotFoundError;
