@@ -435,26 +435,25 @@ public class To_do_list_test {
 
     //UserStorie 9 - Atribuir Lembretes a uma tarefa
     @Test
-    public void VerificarSucessoAtribuicaoLembreteAUmaTarefa() {
+    public void VerificarSucessoAtribuicaoLembretesAUmaTarefa() {
 
         Tarefa tarefa1 = new Tarefa("Comprar leite", 5);
         Lembrete reminder1 = new Lembrete(new Date(117, 12, 30), "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
 
         boolean expected = true;
         boolean real = tarefa1.setLembrete(reminder1);
-        assertEquals(expected, real);
-
-    }
-
-    @Test
-    public void VerificarSucessoEncherArrayDeLembretesNumaTarefa() {
-        Tarefa tarefa1 = new Tarefa("Comprar leite", 5);
-        Lembrete reminder1 = new Lembrete(new Date(117, 12, 30), "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
+       
+        
+        //Verificar Sucesso Encher Array De Lembretes Numa Tarefa
+            Tarefa tarefa2 = new Tarefa("Comprar leite", 5);
+        Lembrete reminder2 = new Lembrete(new Date(117, 12, 30), "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
         for (int i = 0; i < tarefa1.DEFAULT_CAPACITY; i++) {
-            tarefa1.setLembrete(reminder1);
+            tarefa2.setLembrete(reminder1);
         }
 
-        assertEquals(tarefa1.DEFAULT_CAPACITY, tarefa1.getReminderCount());
+        assertEquals(tarefa2.DEFAULT_CAPACITY, tarefa1.getReminderCount());
+         assertEquals(expected, real);
+
     }
 
     @Test
