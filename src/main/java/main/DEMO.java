@@ -32,38 +32,11 @@ public class DEMO {
      * @throws Exceptions.TaskStatusError
      */
     public static void main(String[] args) throws TaskNotFoundError, TagNotFoundError, TaskQuantityError, TaskStatusError {
+        Etiqueta tag = new Etiqueta("asdas");
+        Tarefa task = new Tarefa("asdsa", 2);
+        task.addTag(tag);
+        System.out.println(task.toString());
 
-        Date data = new Date(2016, 12, 20);
-        Lista lista1 = new Lista("SuperMercado");
-        ManagerListas manager = new ManagerListas();
-        System.out.println(lista1.getNomeLista());
-        Tarefa tarefa1 = new Tarefa("Comprar leite", 1);
-        Tarefa tarefa2 = new Tarefa("Comprar ovos", 10);
-        //tarefa2.setEstadoDate(EstadoTarefa.POR_REALIZAR, new Date(116, 11, 30));
-        tarefa1.setPriority(null);
-        tarefa2.setPriority(PrioridadeTarefa.P1);
-        Tarefa tarefa3 = new Tarefa("Comprar água", 10);
-        //tarefa3.setEstadoSeconds(EstadoTarefa.REALIZADA, null);
-        tarefa3.setPriority(PrioridadeTarefa.P1);
-        tarefa1.setLembrete(5, "Só para testar", TipoAlerta.THREAD);
-
-        lista1.addTarefa(tarefa1);
-        lista1.addTarefa(tarefa3);
-        lista1.addTarefa(tarefa2);
-        lista1.groupTasksByStatus();
-        Lista lista2 = new Lista("Loja");
-
-        tarefa1.addTag(new Etiqueta("#trabalho"));
-
-        System.out.println(tarefa1.toString());
-        System.out.println(tarefa2.toString());
-
-        tarefa1.setLembrete(5, "Testar esta coisa", TipoAlerta.THREAD);
-
-        System.out.println("*****************************************");
-        manager.addLista(lista1);
-        manager.addLista(lista2);
-        manager.printAllList();
     }
 
 }

@@ -15,7 +15,7 @@ public class Etiqueta {
     String created;
 
     public Etiqueta(String tmpTag) throws InstantiationError {
-        if (tmpTag != null && !tmpTag.equals("") && tmpTag.length() <= 20) {
+        if (tmpTag != null && !tmpTag.equals("") && tmpTag.length() <= 20 && isAlphaNumeric(tmpTag)) {
             this.tag = tmpTag;
             this.created = "Etiqueta creada com sucesso";
         } else {
@@ -27,6 +27,16 @@ public class Etiqueta {
         return created;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+    
+    
+
     /**
      * Imprime uma String com a informação sobre a etiqueta.
      *
@@ -35,6 +45,11 @@ public class Etiqueta {
     @Override
     public String toString() {
         return this.tag;
+    }
+
+    private boolean isAlphaNumeric(String s) {
+        String pattern = "^[a-zA-Z0-9]*$";
+        return s.matches(pattern);
     }
 
 }

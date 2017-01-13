@@ -21,7 +21,7 @@ import java.util.TimerTask;
  * @author Rui
  */
 public class Tarefa {
-
+    
     private static int count = 0;
     private final int id;
     private String descricao;
@@ -58,11 +58,11 @@ public class Tarefa {
             this.reminderCount = 0;
             this.deadline = new Timer();
             this.deadline.schedule(new Deadline(), deadline * 1000);
-
+            
         } else {
             throw new InstantiationError("Há algum erro com a sua tarefa");
         }
-
+        
     }
 
     /**
@@ -92,11 +92,11 @@ public class Tarefa {
             throw new InstantiationError("Há algum erro com a sua tarefa");
         }
     }
-
+    
     public int getTagCount() {
         return tagCount;
     }
-
+    
     public String getCreated() {
         return created;
     }
@@ -142,7 +142,7 @@ public class Tarefa {
      * @throws TaskStatusError caso haja algum problema com o estado/deadline
      */
     public void setEstadoSeconds(EstadoTarefa estado, Integer newDeadline) throws TaskStatusError {
-
+        
         if (estado == EstadoTarefa.REALIZADA && newDeadline == null) {
             this.estado = EstadoTarefa.REALIZADA;
             this.deadline.cancel();
@@ -152,7 +152,7 @@ public class Tarefa {
         } else {
             throw new TaskStatusError("Há algum problema com o estado da sua tarefa!");
         }
-
+        
     }
 
     /**
@@ -164,7 +164,7 @@ public class Tarefa {
      * @throws TaskStatusError caso haja algum problema com o estado/deadline
      */
     public void setEstadoDate(EstadoTarefa status, Date newDeadline) throws TaskStatusError {
-
+        
         if (status == EstadoTarefa.REALIZADA && newDeadline == null) {
             this.estado = EstadoTarefa.REALIZADA;
             this.deadline.cancel();
@@ -182,10 +182,10 @@ public class Tarefa {
      * @param ticket etiqueta a adiconar.
      */
     public boolean addTag(Etiqueta ticket) {
-
+        
         this.listaEtiquetas[this.tagCount] = ticket;
         this.tagCount++;
-
+        
         return true;
     }
 
@@ -202,7 +202,7 @@ public class Tarefa {
                 return true;
             }
         }
-
+        
         return false;
     }
 
@@ -215,16 +215,16 @@ public class Tarefa {
      * válido.
      */
     public Etiqueta getTag(int ticketNum) throws TagNotFoundError {
-
+        
         boolean isValid = isIndexValid(ticketNum);
-
+        
         if ((ticketNum) <= this.tagCount && isValid) {
-
+            
             return this.listaEtiquetas[ticketNum];
         }
-
+        
         throw new TagNotFoundError("There is no ticket with the index: " + ticketNum);
-
+        
     }
 
     /**
@@ -244,7 +244,7 @@ public class Tarefa {
      * É enviado um lembrete já criado, por parâmetro.
      *
      * @param tmp Lembrete a ser adicionado
-     * @return 
+     * @return
      */
     public boolean setLembrete(Lembrete tmp) {
         this.reminders[reminderCount] = tmp;
@@ -289,7 +289,7 @@ public class Tarefa {
         } else {
             return false;
         }
-
+        
     }
 
     /**
@@ -298,7 +298,7 @@ public class Tarefa {
      * @return prioridade da tarefa
      */
     public PrioridadeTarefa getPriority() {
-
+        
         return this.priority;
     }
 
@@ -311,7 +311,7 @@ public class Tarefa {
         this.deadline.cancel();
         this.deadline = new Timer();
         this.deadline.schedule(new Deadline(), deadline * 1000);
-
+        
     }
 
     /**
@@ -323,9 +323,9 @@ public class Tarefa {
         this.deadline.cancel();
         this.deadline = new Timer();
         this.deadline.schedule(new Deadline(), deadline);
-
+        
     }
-
+    
     @Override
     public String toString() {
         return "A tarefa " + id + " tem:" + "\n" + "Descrição -> " + descricao
@@ -342,27 +342,28 @@ public class Tarefa {
      */
     private Etiqueta[] getNonNullTags(Etiqueta[] data) {
         Etiqueta[] tmpTags = new Etiqueta[this.tagCount];
-
+        
         for (int i = 0; i < this.tagCount; i++) {
             tmpTags[i] = this.listaEtiquetas[i];
+            tmpTags[i].setTag("#" + tmpTags[i].getTag());
         }
-
+        
         return tmpTags;
     }
-
+    
     public int getReminderCount() {
         return reminderCount;
     }
-
+    
     class Deadline extends TimerTask {
-
+        
         @Override
         public void run() {
             System.out.println("O prazo da tarefa " + getId() + " acabou! Ficará neste momento atrasada!");
             deadline.cancel(); //ends the task
             setAtrasada();
         }
-
+        
     }
-
+    
 }
