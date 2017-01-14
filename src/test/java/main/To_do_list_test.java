@@ -162,7 +162,7 @@ public class To_do_list_test {
         Lista list2 = new Lista("Supermercado");
         Tarefa task2 = new Tarefa("Comprar Ovos", 5);
         exception1.expect(ArrayIndexOutOfBoundsException.class);
-        
+
         list2.addTarefa(task2);
         list2.addTarefa(task2);
         list2.addTarefa(task2);
@@ -300,8 +300,8 @@ public class To_do_list_test {
         TimeUnit.SECONDS.sleep(6);
         String real = tarefa1.getEstado().toString();
         assertEquals(expected, real);
-   }
-    
+    }
+
     //UserStorie 6
     @Test
     public void CriarUmaTagComSucesso() {
@@ -444,8 +444,8 @@ public class To_do_list_test {
         assertEquals(expected4, real4);
         assertEquals(expected5, real5);
     }
-    
-      @Test
+
+    @Test
     public void VerificarCriacaoDeLembreteComDiferentesTiposDeAlerta() {
 
         //thread
@@ -611,8 +611,7 @@ public class To_do_list_test {
         }
 
         assertArrayEquals(prioridadesExpected, prioridadesReal);
-        
-        
+
         Lista lista5 = new Lista("Supermercado");
         Tarefa tarefa6 = new Tarefa("Comprar leite", 1);
         Tarefa tarefa7 = new Tarefa("Comprar ovos", 1);
@@ -630,9 +629,7 @@ public class To_do_list_test {
 
         assertArrayEquals(expected2, real2);
 
-        
     }
-
 
     @Test
     public void VerificarSucessoNaImpressaoDaTarefa() throws InterruptedException {
@@ -648,6 +645,22 @@ public class To_do_list_test {
         assertEquals(expected, real);
     }
 
-  
+    @Test
+
+    public void VerificarSucessoNaListagemDeListas() throws TaskNotFoundError {
+
+        Lista lista1 = new Lista("Supermercado");
+        Lista lista2 = new Lista("Loja");
+        ManagerListas manager = new ManagerListas();
+        manager.addLista(lista1);
+        manager.addLista(lista2);
+        String[] realArray = new String[manager.getListCount()];
+        String[] expectedArray = new String[manager.getListCount()];
+        realArray = manager.detailedListPrint();
+        for (int i = 0; i < manager.getListCount(); i++) {
+            expectedArray[i] = "Lista " + (i + 1) + " -> " + manager.getListas()[i].getNomeLista();
+        }
+        assertArrayEquals(expectedArray, realArray);
+    }
 
 }
