@@ -11,6 +11,7 @@ import Enumeracoes.TipoAlerta;
 import Exceptions.TaskNotFoundError;
 import Exceptions.TaskStatusError;
 import ManagerListas.ManagerListas;
+import static java.lang.Thread.sleep;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import org.junit.Test;
@@ -72,6 +73,14 @@ public class To_do_list_test {
 
         assertEquals(expectedCreated1, realCreated1);
         assertEquals(expectedCreated2, realCreated2);
+    }
+
+    @Test
+    public void VerificaCriarTarefaValida() {
+        Tarefa tarefa = new Tarefa("Comprar leite", 5);
+        String real = tarefa.getCreated();
+        String expected = "Tarefa criada com sucesso";
+        assertEquals(expected, real);
     }
 
     @Test
@@ -145,14 +154,15 @@ public class To_do_list_test {
     public void VerificarAdicaoTarefaALista() {
         //Testa com 0 tarefas na lista
         Lista list1 = new Lista("Supermercado");
-        Tarefa task1 = new Tarefa("ComprarOvos", 5);
+        Tarefa task1 = new Tarefa("Comprar Ovos", 5);
         Boolean real = list1.addTarefa(task1);
         Boolean expected = true;
 
         //Testa com 5 tarefas na lista
         Lista list2 = new Lista("Supermercado");
-        Tarefa task2 = new Tarefa("ComprarOvos", 5);
+        Tarefa task2 = new Tarefa("Comprar Ovos", 5);
         exception1.expect(ArrayIndexOutOfBoundsException.class);
+        
         list2.addTarefa(task2);
         list2.addTarefa(task2);
         list2.addTarefa(task2);
@@ -282,15 +292,16 @@ public class To_do_list_test {
         assertEquals(expected6, real6);
     }
 
-//    @Test
-//
-//    public void VerificarSeTarefaFicaAtrasada() throws InterruptedException {
-//        Tarefa tarefa1 = new Tarefa("Comprar Leite", 5);
-//        String expected = EstadoTarefa.ATRASADA.toString();
-//        TimeUnit.SECONDS.sleep(6);
-//        String real = tarefa1.getEstado().toString();
-//        assertEquals(expected, real);
-//    }
+    @Test
+
+    public void VerificarSeTarefaFicaAtrasada() throws InterruptedException {
+        Tarefa tarefa1 = new Tarefa("Comprar Leite", 5);
+        String expected = EstadoTarefa.ATRASADA.toString();
+        TimeUnit.SECONDS.sleep(6);
+        String real = tarefa1.getEstado().toString();
+        assertEquals(expected, real);
+   }
+    
     //UserStorie 6
     @Test
     public void CriarUmaTagComSucesso() {
@@ -304,13 +315,13 @@ public class To_do_list_test {
     public void VerificarTagValidaComNomeComprido() {
         //Tag com 21 caracteres
         exception1.expect(InstantiationError.class);
-        Etiqueta tag1 = new Etiqueta("#VBgrfr72uEAnv5uenVPr");
+        Etiqueta tag1 = new Etiqueta("VBgrfr72uEAnv5uenVPrr");
         //Tag com 20 caracteres
-        Etiqueta tag2 = new Etiqueta("#VBgrfr72uEAnv5uenVP");
+        Etiqueta tag2 = new Etiqueta("VBgrfr72uEAnv5uenVPs");
         String expected2 = "Etiqueta criada com sucesso";
         String real2 = tag2.getCreated();
         //Tag com 19 caracteres
-        Etiqueta tag3 = new Etiqueta("#VBgrfr72uEAnv5uenV");
+        Etiqueta tag3 = new Etiqueta("VBgrfr72uEAnv5uenVs");
         String expected3 = "Etiqueta criada com sucesso";
         String real3 = tag3.getCreated();
 
@@ -320,7 +331,7 @@ public class To_do_list_test {
     }
 
     @Test
-    public void VerificarCriacaoTagComInsucessoNomeNulo() {
+    public void VerificarCriacaoTagComInsucessoNomeVazio() {
         exception1.expect(InstantiationError.class);
         Etiqueta tag1 = new Etiqueta("");
     }
@@ -433,6 +444,54 @@ public class To_do_list_test {
         assertEquals(expected4, real4);
         assertEquals(expected5, real5);
     }
+    
+      @Test
+    public void VerificarCriacaoDeLembreteComDiferentesTiposDeAlerta() {
+
+        //thread
+        Lembrete reminder1 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
+        String expected1 = "THREAD";
+        String real1 = reminder1.getTipoalerta().toString();
+        //mensagem
+        Lembrete reminder2 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.MENSAGEM_TELEMOVEL);
+        String expected2 = "MENSAGEM_TELEMOVEL";
+        String real2 = reminder2.getTipoalerta().toString();
+        //email
+
+        Lembrete reminder3 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.EMAIL);
+        String expected3 = "EMAIL";
+        String real3 = reminder3.getTipoalerta().toString();
+        assertEquals(expected1, real1);
+        assertEquals(expected2, real2);
+        assertEquals(expected3, real3);
+    }
+
+    @Test
+    public void VerificarAlteracaoTipoDeAlertaDoLembrete() {
+
+        //thread para email
+        Lembrete reminder1 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
+        reminder1.setTipoalerta(TipoAlerta.EMAIL);
+        String expected1 = "EMAIL";
+        String real1 = reminder1.getTipoalerta().toString();
+        //mensagem para THREAD
+
+        Lembrete reminder2 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.MENSAGEM_TELEMOVEL);
+        reminder2.setTipoalerta(TipoAlerta.THREAD);
+        String expected2 = "THREAD";
+        String real2 = reminder2.getTipoalerta().toString();
+        //email para telemovel
+
+        Lembrete reminder3 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.EMAIL);
+        reminder3.setTipoalerta(TipoAlerta.MENSAGEM_TELEMOVEL);
+        String expected3 = "MENSAGEM_TELEMOVEL";
+        String real3 = reminder3.getTipoalerta().toString();
+
+        assertEquals(expected1, real1);
+        assertEquals(expected2, real2);
+        assertEquals(expected3, real3);
+
+    }
 
     //UserStorie 9 - Atribuir Lembretes a uma tarefa
     @Test
@@ -451,9 +510,8 @@ public class To_do_list_test {
             tarefa2.setLembrete(reminder2);
         }
 
-
         assertEquals(expected, real);
-                assertEquals(tarefa2.DEFAULT_CAPACITY, tarefa2.getReminderCount());
+        assertEquals(tarefa2.DEFAULT_CAPACITY, tarefa2.getReminderCount());
 
     }
 
@@ -531,7 +589,7 @@ public class To_do_list_test {
 
     @Test
 
-    public void VerificarSucessoNaOrdenacaoDeTarefasPorPrioridade() throws TaskNotFoundError {
+    public void VerificarSucessoNaOrdenacaoDeTarefasPorPrioridadeEestado() throws TaskNotFoundError, TaskStatusError {
         Lista lista1 = new Lista("Supermercado");
         Tarefa tarefa1 = new Tarefa("Comprar leite", 1);
         Tarefa tarefa2 = new Tarefa("Comprar ovos", 10);
@@ -553,90 +611,43 @@ public class To_do_list_test {
         }
 
         assertArrayEquals(prioridadesExpected, prioridadesReal);
-    }
-
-    @Test
-
-    public void VerificarSucessoNoAgrupamentoDasTarefasPorEstado() throws TaskStatusError, TaskNotFoundError {
-        Lista lista1 = new Lista("Supermercado");
-        Tarefa tarefa1 = new Tarefa("Comprar leite", 1);
-        Tarefa tarefa2 = new Tarefa("Comprar ovos", 1);
-        Tarefa tarefa3 = new Tarefa("Comprar água", 1);
-        tarefa2.setEstadoDate(EstadoTarefa.REALIZADA, null);
-        lista1.addTarefa(tarefa1);
-        lista1.addTarefa(tarefa2);
-        lista1.addTarefa(tarefa3);
-        lista1.groupTasksByStatus();
-        String[] expected = {EstadoTarefa.POR_REALIZAR.toString(), EstadoTarefa.POR_REALIZAR.toString(), EstadoTarefa.REALIZADA.toString()};
-        String[] real = new String[3];
-        for (int i = 0; i < lista1.getTaskNum(); i++) {
-            real[i] = lista1.getTarefa(i).getEstado().toString();
+        
+        
+        Lista lista5 = new Lista("Supermercado");
+        Tarefa tarefa6 = new Tarefa("Comprar leite", 1);
+        Tarefa tarefa7 = new Tarefa("Comprar ovos", 1);
+        Tarefa tarefa8 = new Tarefa("Comprar água", 1);
+        tarefa6.setEstadoDate(EstadoTarefa.REALIZADA, null);
+        lista5.addTarefa(tarefa6);
+        lista5.addTarefa(tarefa7);
+        lista5.addTarefa(tarefa8);
+        lista5.groupTasksByStatus();
+        String[] expected2 = {EstadoTarefa.POR_REALIZAR.toString(), EstadoTarefa.POR_REALIZAR.toString(), EstadoTarefa.REALIZADA.toString()};
+        String[] real2 = new String[3];
+        for (int i = 0; i < lista5.getTaskNum(); i++) {
+            real2[i] = lista5.getTarefa(i).getEstado().toString();
         }
 
-        assertArrayEquals(expected, real);
+        assertArrayEquals(expected2, real2);
+
+        
     }
 
+
     @Test
-    public void VerificarSucessoNaImpressaoDaTarefa() {
-        Tarefa tarefa1 = new Tarefa("Comprar leite", 1);
-        String expected = "A tarefa 1 tem: "
-                + "Descrição -> Comprar ovos "
-                + "Estado -> POR_REALIZAR "
-                + "Prioridade -> P1 "
-                + "Tags: [] "
-                + "Lembrete criado com sucesso";
+    public void VerificarSucessoNaImpressaoDaTarefa() throws InterruptedException {
+        Tarefa tarefa1 = new Tarefa("Comprar leite", 5);
+        String expected = "A tarefa 10 tem:\n"
+                + "Descrição -> Comprar leite\n"
+                + "Estado -> ATRASADA\n"
+                + "Prioridade -> SEM_PRIORIDADE\n"
+                + "Tags: []";
+
+        sleep(6000);
         String real = tarefa1.toString();
         assertEquals(expected, real);
     }
 
-    @Test
-    public void VerificarCriacaodosdeDiferentesTiposdeLembretes() {
+  
 
-        //thread
-        Lembrete reminder1 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
-        String expected1 = "THREAD";
-        String real1 = reminder1.getTipoalerta().toString();
-        //mensagem
-        Lembrete reminder2 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.MENSAGEM_TELEMOVEL);
-        String expected2 = "MENSAGEM_TELEMOVEL";
-        String real2 = reminder2.getTipoalerta().toString();
-        //email
-        
-     Lembrete reminder3 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.EMAIL);
-        String expected3 = "EMAIL";
-        String real3 = reminder3.getTipoalerta().toString();
-        assertEquals(expected1, real1);
-             assertEquals(expected2, real2);
-            assertEquals(expected3, real3);
-    }
-
-//    @Test
-//    public void VerificarAlterarTipoDeAlertaDoLembrete(){
-//        
-//        //thread
-//        Lembrete reminder1 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.THREAD);
-//        String expected1 = "TipoAlerta.THREAD";
-//        String real1 = reminder1.getTipoalerta().toString();
-//        //mensagem
-//
-//        Lembrete reminder2 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.MENSAGEM_TELEMOVEL);
-//        String expected2 = "Lembrete criado com sucesso";
-//        String real2 = reminder2.getTipoalerta().toString();
-//        //email
-//
-//        Lembrete reminder3 = new Lembrete(5, "A tarefa está a pedir para ser realizada", TipoAlerta.EMAIL);
-//        String expected3 = "Lembrete criado com sucesso";
-//        String real3 = reminder3.getTipoalerta().toString();
-//        assertEquals(expected1, real1);
-//        assertEquals(expected2, real2);
-//        assertEquals(expected3, real3);
-//        
-//        
-//        
-    }
-    
-    
-    
-    
-    
-//}
+}
